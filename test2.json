@@ -1,0 +1,9 @@
+{
+  "fields": [
+    "temperatureC",
+    "temperatureF",
+    "humidity"],
+  "temperatureC": "15",
+  "temperatureF": "54",
+  "humidity": "25"
+}
