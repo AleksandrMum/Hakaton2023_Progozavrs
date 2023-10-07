@@ -11,7 +11,7 @@ class ServerToSensors:
         self.HOST = "127.0.0.1"
         self.PORT = 65432
 
-    def start_server(self):
+    async def start_server(self):
         with self.socket.socket(self.socket.AF_INET, self.socket.SOCK_STREAM) as s:
             s.bind((self.HOST, self.PORT))
             s.listen(5)
@@ -35,19 +35,3 @@ class ServerToSensors:
         metric = {self.time.time(): data}
         file.update(metric)
         file.dump(file_directory)
-
-
-# class WebSite:
-#     def __init__(self):
-#         import flask
-#         self.flask = flask
-#
-#     def website_up(self):
-#         import main
-#         app = self.flask.Flask(main.__name__)
-#
-#         @app.route('/')
-#         def site_html():
-#             return self.flask.render_template('templates\\site.html')
-#         if __name__ == '__main__':
-#             app.run(debug=True)

@@ -1,9 +1,0 @@
-{
-  "number_of_sensors": "4",
-  "sensors": [
-    ["taganrog", "ok"],
-    ["rostov", "not working"],
-    ["moskva", "not working"],
-    ["krym", "ok"]
-  ]
-}

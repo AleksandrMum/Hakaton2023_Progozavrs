@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Хакатон2023 - Датчики погоды</title>
+</head>
+<body>
+    <script>
+        function Time() {
+            let date = new Date()
+            let year = date.getFullYear() + `, `
+            let month = date.getMonth() + `.`
+            let day = date.getDay() + `.`
+            let hour = date.getHours() + `:`
+            let minute = date.getMinutes() + `:`
+            let second = date.getSeconds()
+            return 'Данные на момент ' + day + month + year + hour + minute + second
+        }
+        document.body.innerHTML += Time()
+    </script>
+</body>
+</html>
