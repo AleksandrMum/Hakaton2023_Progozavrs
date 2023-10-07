@@ -1,7 +1,7 @@
 import telebot
 import functions
 Telegram = functions.Telegram()
-Requests = functions.Requests()
+Data = functions.Data()
 
 bot = telebot.TeleBot('6359375478:AAFF2M0TBQd-6Yj4TjnJS1GxT-3nh7eXczE')
 keyboard_greeting = Telegram.create_keyboard_greeting()
@@ -25,15 +25,15 @@ def back_to_main(message):
 
 @bot.message_handler(commands=["Список_датчиков"])
 def list_of_sensors(message):
-    send_message = Requests.get_list_sensors()
+    send_message = Data.list_of_sensor()
     bot.send_message(message.chat.id, send_message)
 
 
-@bot.message_handler(content_types=["Данные"])
-def list_of_data(message):
-    input_text = message.text.replace("/Данные ", "")
-    data = Requests.get_sensor_data(input_text)
-    bot.send_message(message.chat.id, data)
+# @bot.message_handler(content_types=["Данные"])
+# def list_of_data(message):
+#     input_text = message.text.replace("/Данные ", "")
+#     data = Requests.get_sensor_data(input_text)
+#     bot.send_message(message.chat.id, data)
 
 
 @bot.message_handler(content_types=["text"])

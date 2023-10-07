@@ -12,39 +12,55 @@ class Telegram:
         return markup
 
 
-class Requests:
+class Data:
     def __init__(self):
-        import requests
-        self.requests = requests
-        self.address = "https://сайт"
+        import json
+        import os
+        self.json = json
+        self.os = os
 
-    def get_list_sensors(self):
-        json_sensors = self.requests.get(f"{self.address}/list_of_sensors").json()
-        number_of_sensors = int(json_sensors["number_of_sensors"])
-        list_of_sensors = json_sensors["sensors"]
-        names_of_sensors_good = []
-        names_of_sensors_bad = []
-        for number in range(number_of_sensors):
-            if list_of_sensors[number][1] == "ok":
-                names_of_sensors_good.append(list_of_sensors[number][0])
-            else:
-                names_of_sensors_bad.append(list_of_sensors[number][0])
-        str_names_of_sensors_good = '\n'.join(names_of_sensors_good)
-        str_names_of_sensors_bad = '\n'.join(names_of_sensors_bad)
-        message = (f"Список активных датчиков: \n"
-                   f"{str_names_of_sensors_good} \n\n"
-                   f"Список неактивных датчиков: \n"
-                   f"{str_names_of_sensors_bad} \n\n"
-                   f"Чтобы получить данные с активного датчика, введите '/Данные ИмяСенсора'")
-        return message
+    def list_of_sensor(self):
+        list_of_directories = self.os.listdir("\\data\\sensors")
+        list_of_sensors = []
+        for item in list_of_directories:
+            list_of_sensors.append(item.replace(".json", ""))
+        sensors = '\n'.join(list_of_sensors)
+        file = open("\\data\\sensors.txt", "w")
+        file.write(sensors)
+        file.close()
+        if len(list_of_sensors) < 15:
+            return f"Список датчиков: \n{sensors}"
+        else:
+            sensors = '\n'.join(list_of_sensors[:15])
+            return f"Список датчиков (только первые 15 вхождений): \n{sensors}"
 
-    def get_sensor_data(self, name):
-        json_data = self.requests.get(f"{self.address}/{name}").json()
-        data = []
-        for i in range(0, len(json_data.data)):
-            data.append(f"{json_data.field[i]} - {json_data.data[i]}")
-        message = "\n".join(data)
-        return message
+    # def get_list_sensors(self):
+    #     json_sensors = self.requests.get(f"{self.address}/list_of_sensors").json()
+    #     number_of_sensors = int(json_sensors["number_of_sensors"])
+    #     list_of_sensors = json_sensors["sensors"]
+    #     names_of_sensors_good = []
+    #     names_of_sensors_bad = []
+    #     for number in range(number_of_sensors):
+    #         if list_of_sensors[number][1] == "ok":
+    #             names_of_sensors_good.append(list_of_sensors[number][0])
+    #         else:
+    #             names_of_sensors_bad.append(list_of_sensors[number][0])
+    #     str_names_of_sensors_good = '\n'.join(names_of_sensors_good)
+    #     str_names_of_sensors_bad = '\n'.join(names_of_sensors_bad)
+    #     message = (f"Список активных датчиков: \n"
+    #                f"{str_names_of_sensors_good} \n\n"
+    #                f"Список неактивных датчиков: \n"
+    #                f"{str_names_of_sensors_bad} \n\n"
+    #                f"Чтобы получить данные с активного датчика, введите '/Данные ИмяСенсора'")
+    #     return message
+
+    # def get_sensor_data(self, name):
+    #     json_data = self.requests.get(f"{self.address}/{name}").json()
+    #     data = []
+    #     for i in range(0, len(json_data.data)):
+    #         data.append(f"{json_data.field[i]} - {json_data.data[i]}")
+    #     message = "\n".join(data)
+    #     return message
 
 
 greeting = (f"Здравствуйте! Спасибо за то, что воспользовались нашим Телеграм ботом погоды.\n\n"
