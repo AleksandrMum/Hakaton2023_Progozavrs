@@ -1,10 +1,13 @@
 import telebot
 import functions
-# import server
+import Server.s_flask as Flask
+import Server.s_socket as Socket
+import asyncio
 
 Telegram = functions.Telegram()
 Data = functions.Data()
-# ServerToSensors = server.ServerToSensors()
+socket = Socket.ServerToSensors()
+Loop = asyncio.get_event_loop()
 
 bot = telebot.TeleBot('6359375478:AAFF2M0TBQd-6Yj4TjnJS1GxT-3nh7eXczE')
 keyboard_greeting = Telegram.create_keyboard_greeting()
@@ -29,7 +32,9 @@ def back_to_main(message):
 @bot.message_handler(commands=["Список_датчиков"])
 def list_of_sensors(message):
     send_message = Data.list_of_sensor()
+    file = open("data\\sensors.txt", "rb").read()
     bot.send_message(message.chat.id, send_message)
+    bot.send_document(message.chat.id, file)
 
 
 # @bot.message_handler(content_types=["Данные"])
@@ -44,5 +49,7 @@ def another_text(message):  # Название функции не играет 
     bot.send_message(message.chat.id, "Ошибка, повторите ввод")
 
 
-print("Бот заработал")
-bot.polling()
+Loop.run_until_complete(Flask.start_app())
+Loop.run_until_complete(bot.polling())
+Loop.run_until_complete(socket.start_server())
+Loop.run_forever()
