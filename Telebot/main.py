@@ -9,7 +9,7 @@ Data = functions.Data()
 socket = Socket.ServerToSensors()
 Loop = asyncio.get_event_loop()
 
-bot = telebot.TeleBot('6359375478:AAFF2M0TBQd-6Yj4TjnJS1GxT-3nh7eXczE')
+bot = telebot.TeleBot('token')
 keyboard_greeting = Telegram.create_keyboard_greeting()
 
 
