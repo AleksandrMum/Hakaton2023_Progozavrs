@@ -1,7 +1,10 @@
 import telebot
 import functions
+# import server
+
 Telegram = functions.Telegram()
 Data = functions.Data()
+# ServerToSensors = server.ServerToSensors()
 
 bot = telebot.TeleBot('6359375478:AAFF2M0TBQd-6Yj4TjnJS1GxT-3nh7eXczE')
 keyboard_greeting = Telegram.create_keyboard_greeting()

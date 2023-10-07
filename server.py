@@ -1,4 +1,4 @@
-class Server:
+class ServerToSensors:
     def __init__(self):
         import socket
         import json
@@ -35,3 +35,19 @@ class Server:
         metric = {self.time.time(): data}
         file.update(metric)
         file.dump(file_directory)
+
+
+# class WebSite:
+#     def __init__(self):
+#         import flask
+#         self.flask = flask
+#
+#     def website_up(self):
+#         import main
+#         app = self.flask.Flask(main.__name__)
+#
+#         @app.route('/')
+#         def site_html():
+#             return self.flask.render_template('templates\\site.html')
+#         if __name__ == '__main__':
+#             app.run(debug=True)
