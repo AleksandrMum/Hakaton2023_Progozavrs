@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Хакатон2023 - Датчики погоды</title>
+</head>
+<body>
+    <script>
+        function Time() {
+            let date = new Date()
+            let year = date.getFullYear() + `, `
+            let month = date.getMonth() + `.`
+            let day = date.getDay() + `.`
+            let hour = date.getHours() + `:`
+            let minute = date.getMinutes() + `:`
+            let second = date.getSeconds()
+            return 'Данные на момент ' + day + month + year + hour + minute + second
+        }
+
+        function createSensorsTable(){
+            fetch("test1.json")
+            .then(response => response.json())
+            .then(data => sensorsTable(data));
+        }
+
+        function sensorsTable(data) {
+            let table = `<table id="table_of_sensors" border="2">`;
+            table += `<tr> <th>Name</th> <th>Status</th> </tr>`;
+
+            let number_of_sensors = data.number_of_sensors;
+            let name, status;
+            for (let i = 0; i < number_of_sensors; i++) {
+                name = data.sensors[i][0]
+                status = data.sensors[i][1]
+                table += `<tr> <td>` + name + `</td> <td>` + status +
+                    `</td> <td> <button onclick="createDataTable(name)">Показать данные</button> </td> </tr>`
+            }
+            table += "</table>";
+            document.body.innerHTML += table;
+        }
+
+        function createDataTable(name) {
+            fetch("test2.json")
+            .then(response => response.json())
+            .then(data => dataTable(data));
+        }
+
+        function dataTable(data) {
+            let table = `<table id="table_of_data" border="2"> <tr>`;
+
+            let number_of_fields = data.fields.length;
+            let field;
+            for (let i = 0; i < number_of_fields; i++) {
+                field = data.fields[i];
+                table += `<th>` + field + `</th>`
+            }
+            table += `</tr> <tr>`
+
+            let item;
+            for (let i = 0; i < number_of_fields; i++) {
+                item = data.data[i];
+                table += `<td>` + item + `</td>`
+            }
+            table += "</tr> </table>";
+
+            document.getElementById("table_of_sensors").remove();
+            document.body.innerHTML += table;
+            let button = `<button onclick="backToMain()" id="back_to_main">Вернуться в начало</button>`;
+            let time = `<p id="actually_time">` + Time() + `</p>`;
+            document.body.innerHTML += time + button;
+        }
+
+        function backToMain() {
+            document.getElementById("table_of_data").remove();
+            document.getElementById("back_to_main").remove();
+            document.getElementById("actually_time").remove();
+            createSensorsTable();
+        }
+        createSensorsTable();
+    </script>
+</body>
+</html>

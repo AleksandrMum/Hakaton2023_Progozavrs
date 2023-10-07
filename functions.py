@@ -41,8 +41,8 @@ class Requests:
     def get_sensor_data(self, name):
         json_data = self.requests.get(f"{self.address}/{name}").json()
         data = []
-        for item in json_data["fields"]:
-            data.append(f"{item} - {json_data[item]}")
+        for i in range(0, len(json_data.data)):
+            data.append(f"{json_data.field[i]} - {json_data.data[i]}")
         message = "\n".join(data)
         return message
 
