@@ -4,6 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
+    data = {'sensors': []}
     return render_template("site.html")
 
 

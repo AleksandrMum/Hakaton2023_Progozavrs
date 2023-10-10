@@ -82,7 +82,7 @@ void initSwich(RCSWITCH_t * RCSwitch) {
 	*/
 void setProtocol(RCSWITCH_t * RCSwitch, int nProtocol) {
 	if (nProtocol < 1 || nProtocol > numProto) {
-	nProtocol = 1;	// TODO: trigger an error, e.g. "bad protocol" ???
+	nProtocol = 1;
 	}
 	RCSwitch->protocol = proto[nProtocol-1];
 }

@@ -1,2 +1,3 @@
-sensor1
-sensor99
+Humididty1.txt
+TEMPERATURE1.txt
+Virtual.txt

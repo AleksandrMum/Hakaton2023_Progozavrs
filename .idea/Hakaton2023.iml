@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/HARDWARE_CODE/Ci ESP32/main/build/log" />
+      <excludeFolder url="file://$MODULE_DIR$/data/sensors" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
